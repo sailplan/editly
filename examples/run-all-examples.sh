@@ -1,13 +1,10 @@
 #/bin/bash
-set -e
+set -xe
 
-node ../cli.js --json gl.json5
-node ../cli.js --json image.json5
-node ../cli.js --json losslesscut.json5
-node ../cli.js --json resizeHorizontal.json5
-node ../cli.js --json resizeVertical.json5
-node ../cli.js --json speedTest.json5
-node ../cli.js --json subtitle.json5
-node ../cli.js --json transitionEasing.json5
-node ../cli.js --json transparentGradient.json5
-node ../cli.js --json commonFeatures.json5
+for f in *.json5; do
+  node ../cli.js --fast --json "$f"
+done
+
+for f in *.js; do
+  node "$f"
+done
