@@ -402,7 +402,7 @@ async function Editly(config = {}) {
 
 // Pure function to get a frame at a certain time
 // TODO I think this does not respect transition durations
-async function renderSingleFrame({
+export async function renderSingleFrame({
   time = 0,
   defaults,
   width = 800,
@@ -417,7 +417,7 @@ async function renderSingleFrame({
   ffmpegPath = 'ffmpeg',
   outPath = `${Math.floor(Math.random() * 1e12)}.png`,
 }) {
-  const clips = await parseConfig({ defaults, clips: clipsIn, arbitraryAudio: [], allowRemoteRequests, ffprobePath });
+  const { clips } = await parseConfig({ defaults, clips: clipsIn, arbitraryAudio: [], allowRemoteRequests, ffprobePath });
   let clipStartTime = 0;
   const clip = clips.find((c) => {
     if (clipStartTime <= time && clipStartTime + c.duration > time) return true;
@@ -440,7 +440,5 @@ async function renderSingleFrame({
   canvas.dispose();
   await frameSource.close();
 }
-
-Editly.renderSingleFrame = renderSingleFrame;
 
 export default Editly;
